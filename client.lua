@@ -105,3 +105,8 @@ function unfuck(...)
     end
     return table.unpack(t)
 end
+
+CreateThread(function()
+    Wait(1000)
+    SendNUIMessage({type = "sound", content = config.MenuSounds})
+end)

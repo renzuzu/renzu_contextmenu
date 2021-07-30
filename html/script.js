@@ -1,11 +1,25 @@
-	// For the thumbnail demo! :]
-
-var count = 1
-
-var mousein = false
 var menus = []
+var sound = false
 function nospace(str) {
 	return str.replace(/[^a-z0-9]/gi,'');
+}
+
+var playing = ''
+function PlaySound(string) {
+	if (!sound) { return }
+    var audioPlayer = null;
+    if (audioPlayer != null) {
+        audioPlayer.pause();
+    }
+    audioPlayer = new Audio("./audio/" + string + ".ogg");
+    audioPlayer.volume = 0.8;
+	if (playing == '' || playing !== string) {
+		playing = string
+		setTimeout(function(){
+			audioPlayer.play();
+			playing = ''
+		}, 100);
+	}
 }
 
 function send(v,a) {
@@ -15,8 +29,7 @@ function send(v,a) {
 function show(event) {
 	if (menus[event.k] == undefined) {
 		menus[event.k] = event.content
-		console.log(event.k)
-		$("#menu").prepend('<menuitem><a class="switch"><i class="fad fa-bars"></i> '+event.k+'</a><menu id="'+nospace(event.k)+'">');
+		$("#menu").prepend('<menuitem onmouseover="PlaySound(`hover`);"><a class="switch"><i class="fad fa-bars"></i> '+event.k+'</a><menu id="'+nospace(event.k)+'">');
 		for (const i in menus[event.k]) {
 			menu[menus[event.k][i]['title']] = true
 			if (menus[event.k][i]['variables'] !== undefined) {
@@ -25,14 +38,16 @@ function show(event) {
 				}
 				menus[event.k][i]['variables'].path = {name:event.k,title:i}
 			}
-			//console.log(menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,''))
-			console.log(menus[event.k][i]['title'])
 			if (menus[event.k][i]['fa'] == undefined) {
 				menus[event.k][i]['fa'] = '<i class="fad fa-cog"></i>';
 			}
-			$('#'+nospace(event.k)+'').append('<menuitem><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
+			$('#'+nospace(event.k)+'').append('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
 			$("#"+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+"").click(function(){
-				send(menus[event.k][i],menus[event.k][i]["variables"]);
+				setTimeout(function(){ 
+					send(menus[event.k][i],menus[event.k][i]["variables"]);
+				 }, 500);
+				document.getElementById("nav").style.display = 'none';
+				PlaySound('accept')
 			});
 		}
 		$("#menu").prepend('</menu></menuitem>');
@@ -40,49 +55,34 @@ function show(event) {
 }
 
 function close() {
-	console.log("TIKOL")
-	$.post("https://renzu_contextmenu/close",{},function(datab){});
-	window.location.reload(false);
+	PlaySound('close')
+	document.getElementById("nav").style.display = 'none';
+	setTimeout(function(){
+		$.post("https://renzu_contextmenu/close",{},function(datab){});
+		window.location.reload(false);
+	 }, 400);
 }
-
-function reset() {
-   count = 1
-   var hovers = document.querySelectorAll('.hover')
-   for(var i = 0; i < hovers.length; i++ ) {
-      hovers[i].classList.remove('hover')
-   }
-}
-
-document.addEventListener('mouseover', function() {
-   mousein = true
-   //reset()
-})
 
 var current = undefined
 window.addEventListener('message', function (table) {
 	let event = table.data;
 	if (event.type == 'insert') {
 		show(event.content)
-		// var icons = document.querySelectorAll('.switch');
-		// for (var i = 0; i < icons.length; i++) {
-		// 	icons[i].addEventListener("mouseenter", function() {
-		// 		reset()
-		// 	});
-
-		// 	icons[i].addEventListener("mouseleave", function() {
-		// 		reset()
-		// 	});
-		// }
 	}
 	if (event.type == 'show') {
-		//console.log("ASO")
 		document.getElementById("nav").style.display = 'block';
 	}
 	if (event.type == 'reset') {
-	window.location.reload(false);
-	//console.log("reset")
+		window.location.reload(false);
+	}
+	if (event.type == 'sound') {
+		sound = event.content
+		localStorage.setItem("sound", event.content);
 	}
 });
 $("#close").click(function(){
 	close();
 });
+setTimeout(function(){
+	sound = localStorage.getItem("sound");
+ }, 400);
