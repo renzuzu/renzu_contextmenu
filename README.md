@@ -18,7 +18,7 @@ uidata = {
         ['title'] = 'EXPORT SAMPLE',
         ['fa'] = '<i class="fad fa-question-square"></i>',
         ['type'] = 'export', -- event / export
-        ['content'] = 'ask', -- important to rename this, this will be the id of submenu, this will be also the event if using event type, if using export using only as div id
+        ['content'] = 'ask', -- EVENT
         ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false, exports = 'exports["cd_keymaster"]:StartKeyMaster'}, -- WITHOUT ()
     },
     ['Steal'] = {
@@ -53,7 +53,7 @@ firstmenu = {
         ['title'] = 'EXPORT SAMPLE',
         ['fa'] = '<i class="fad fa-question-square"></i>',
         ['type'] = 'export', -- event / export
-        ['content'] = 'ask', -- important to rename this, this will be the id of submenu, this will be also the event if using event type, if using export using only as div id
+        ['content'] = 'ask', -- EVENT
         ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false, exports = 'exports["cd_keymaster"]:StartKeyMaster'},
     },
     ['Steal'] = {
@@ -61,14 +61,14 @@ firstmenu = {
         ['fa'] = '<i class="fad fa-hood-cloak"></i>',
         ['type'] = 'event', -- event / export
         ['content'] = 'holdup',
-        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false},
+        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {1,2,true,"STRING"}, arg_unpack = false},
     },
     ['SellDrag'] = {
         ['title'] = 'Sell Meth',
         ['fa'] = '<i class="fad fa-hand-holding-magic"></i>',
         ['type'] = 'event', -- event / export
         ['content'] = 'kill',
-        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false},
+        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {false,2,3,4}, arg_unpack = false},
     },
 }
 secondmenu = {
@@ -76,7 +76,7 @@ secondmenu = {
         ['title'] = 'EXPORT SAMPLE',
         ['fa'] = '<i class="fad fa-question-square"></i>',
         ['type'] = 'export', -- event / export
-        ['content'] = 'ask', -- important to rename this, this will be the id of submenu, this will be also the event if using event type, if using export using only as div id
+        ['content'] = 'ask', -- EVENT
         ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false, exports = 'exports["cd_keymaster"]:StartKeyMaster'},
     },
     ['Steal'] = {
@@ -84,14 +84,14 @@ secondmenu = {
         ['fa'] = '<i class="fad fa-hood-cloak"></i>',
         ['type'] = 'event', -- event / export
         ['content'] = 'holdup',
-        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false},
+        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {1,true,3,4}, arg_unpack = false},
     },
     ['SellDrag'] = {
         ['title'] = 'Sell Meth',
         ['fa'] = '<i class="fad fa-hand-holding-magic"></i>',
         ['type'] = 'event', -- event / export
         ['content'] = 'kill',
-        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false},
+        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {1,2,3,4}, arg_unpack = false},
     },
 }
 multimenu['FIRST MENU TITLE'] = firstmenu
@@ -110,3 +110,6 @@ TriggerEvent('renzu_contextmenu:insertmulti',multimenu,"ENTITY",true)
 
 # CLOSE MENU
 ```TriggerEvent('renzu_contextmenu:close')```
+
+# Video Short Demo
+https://streamable.com/6k8oji
