@@ -27,9 +27,9 @@ AddEventHandler('renzu_contextmenu:insertmulti', function(table,title,entity,cle
     for k,v in pairs(table) do
         local table = {
             content = v.data,
-            k = v.title,
-            entity = v.entity,
-            clear = v.clear
+            k = k or "TITLE MISSING",
+            entity = entity or -1,
+            clear = clear or false
         }
         print(table,"GAGO",title,entity,clear)
         SendNUIMessage({type = "insert", content = table})
@@ -49,7 +49,13 @@ end)
 function ReceiveData(data)
     local foundevent = false-- security pass the events if its registered only at config!
     local data = data.table
+    for k,v in pairs(config.Events) do
+        if v == data.content then
+            foundevent = true
+        end
+    end
     print(data.content)
+    if not foundevent and config.WhitelistEvents then return end
     if data.variables.onclickcloseui then -- close the ui before any trigger event, prevent UI bug from other NUI focus.
         SendNUIMessage({type = "reset", content = true})
         SetNuiFocus(false,false)
@@ -92,22 +98,6 @@ AddEventHandler('renzu_contextmenu:close', function(table)
         TriggerEvent('renzu_rayzone:close')
     end
 end)
-
-function Event(data,custom_arg)
-    if data == nil or data.table == nil then
-        local t = data
-        data = {}
-        data.table = t
-    end
-    if custom_arg == nil then
-        custom_arg = {}
-    end
-    if data.table['server_event'] and data.table['event'] ~= nil then
-        TriggerServerEvent(data.table['event'],unfuck(table.unpack(custom_arg)))
-    elseif data.table['event'] ~= nil then
-        TriggerEvent(data.table['event'],unfuck(table.unpack(custom_arg)))
-    end
-end
 
 function unfuck(...)
     local a = {...}
