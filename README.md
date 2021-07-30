@@ -1,7 +1,7 @@
 # renzu_contextmenu
 FIVEM - CONTEXTMENU NUI. Targeting Purpose
 
-# SAMPLE USAGE SINGLE
+# SAMPLE USAGE SINGLE EXPORT
 
 ```
 uidata = {
@@ -32,7 +32,7 @@ uidata = {
  TriggerEvent('renzu_contextmenu:insert',uidata,"MENU TITLE","ENTITY",true)
  ```
 
-# SAMPLE USAGE MULTI
+# SAMPLE USAGE MULTI EXPORT
 
 ```
 local multimenu = {}
@@ -88,3 +88,10 @@ multimenu['SECOND MENU TITLE'] = secondmenu
 ```
 TriggerEvent('renzu_contextmenu:insertmulti',multimenu,"MENU TITLE","ENTITY",true)
 ```
+
+# SHOW THE MENU
+- the Data must be populated first using the exports sample above
+TriggerEvent('renzu_contextmenu:show')
+
+# CLOSE MENU
+TriggerEvent('renzu_contextmenu:close')
