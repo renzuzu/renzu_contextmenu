@@ -1,6 +1,15 @@
 # renzu_contextmenu
 FIVEM - CONTEXTMENU NUI. Targeting or Other Interaction Purpose
-
+# FEATURE
+- Multiple Submenu
+- Easy Implementation
+- Clean UI
+- GUI Sounds (optional)
+- Whitelisted Events (optional)
+- Easy to integrated to Any Target Script
+- Trigger Export
+- Trigger Client or Server
+- Pass Any Arguments as optional to the receiver
 # SAMPLE USAGE SINGLE EXPORT
 
 ```
@@ -31,6 +40,9 @@ uidata = {
  ```
  TriggerEvent('renzu_contextmenu:insert',uidata,"MENU TITLE","ENTITY",true)
  ```
+- RESULT
+- ![ezgif-7-8fbc6c927f43](https://user-images.githubusercontent.com/82306584/127671328-68c72bb7-719f-4aab-a907-bca1ddb917dc.gif)
+
 
 # SAMPLE USAGE MULTI EXPORT
 
@@ -88,6 +100,9 @@ multimenu['SECOND MENU TITLE'] = secondmenu
 ```
 TriggerEvent('renzu_contextmenu:insertmulti',multimenu,"MENU TITLE","ENTITY",true)
 ```
+# Result 
+- ![ezgif-7-bf45a61bf40c](https://user-images.githubusercontent.com/82306584/127672457-6fbbab27-9538-41b0-8afd-2f1ab2eb3e08.gif)
+
 
 # SHOW THE MENU
 - the Data must be populated first using the exports sample above
