@@ -110,3 +110,6 @@ TriggerEvent('renzu_contextmenu:insertmulti',multimenu,"ENTITY",true)
 
 # CLOSE MENU
 ```TriggerEvent('renzu_contextmenu:close')```
+
+# Video Short Demo
+https://streamable.com/6k8oji
