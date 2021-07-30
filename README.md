@@ -15,11 +15,11 @@ FIVEM - CONTEXTMENU NUI. Targeting or Other Interaction Purpose
 ```
 uidata = {
     ['Ask Question'] = {
-        ['title'] = 'Ask',
+        ['title'] = 'EXPORT SAMPLE',
         ['fa'] = '<i class="fad fa-question-square"></i>',
         ['type'] = 'export', -- event / export
         ['content'] = 'ask', -- important to rename this, this will be the id of submenu, this will be also the event if using event type, if using export using only as div id
-        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false, exports = (function() e = exports["cd_keymaster"]:StartKeyMaster() end)}, -- change only this 'exports["cd_keymaster"]:StartKeyMaster()' in able to execute exports.
+        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false, exports = 'exports["cd_keymaster"]:StartKeyMaster'}, -- WITHOUT ()
     },
     ['Steal'] = {
         ['title'] = 'Steal',
@@ -50,11 +50,11 @@ uidata = {
 local multimenu = {}
 firstmenu = {
     ['Ask Question'] = {
-        ['title'] = 'Ask',
+        ['title'] = 'EXPORT SAMPLE',
         ['fa'] = '<i class="fad fa-question-square"></i>',
         ['type'] = 'export', -- event / export
         ['content'] = 'ask', -- important to rename this, this will be the id of submenu, this will be also the event if using event type, if using export using only as div id
-        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false, exports = (function() e = exports["cd_keymaster"]:StartKeyMaster() end)}, -- change only this 'exports["cd_keymaster"]:StartKeyMaster()' in able to execute exports.
+        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false, exports = 'exports["cd_keymaster"]:StartKeyMaster'},
     },
     ['Steal'] = {
         ['title'] = 'Steal',
@@ -73,11 +73,11 @@ firstmenu = {
 }
 secondmenu = {
     ['Ask Question'] = {
-        ['title'] = 'Ask',
+        ['title'] = 'EXPORT SAMPLE',
         ['fa'] = '<i class="fad fa-question-square"></i>',
         ['type'] = 'export', -- event / export
         ['content'] = 'ask', -- important to rename this, this will be the id of submenu, this will be also the event if using event type, if using export using only as div id
-        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false, exports = (function() e = exports["cd_keymaster"]:StartKeyMaster() end)}, -- change only this 'exports["cd_keymaster"]:StartKeyMaster()' in able to execute exports.
+        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false, exports = 'exports["cd_keymaster"]:StartKeyMaster'},
     },
     ['Steal'] = {
         ['title'] = 'Steal',
