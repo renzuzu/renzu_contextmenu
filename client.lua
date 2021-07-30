@@ -18,21 +18,19 @@ AddEventHandler('renzu_contextmenu:insert', function(table,title,entity,clear)
         entity = entity,
         clear = clear
     }
-    print(table,"GAGO",title,entity,clear)
     SendNUIMessage({type = "insert", content = table})
 end)
 
 RegisterNetEvent('renzu_contextmenu:insertmulti')
 AddEventHandler('renzu_contextmenu:insertmulti', function(table,title,entity,clear)
     for k,v in pairs(table) do
-        local table = {
-            content = v.data,
+        local t = {
+            content = v,
             k = k or "TITLE MISSING",
             entity = entity or -1,
             clear = clear or false
         }
-        print(table,"GAGO",title,entity,clear)
-        SendNUIMessage({type = "insert", content = table})
+        SendNUIMessage({type = "insert", content = t})
     end
 end)
 
