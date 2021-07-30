@@ -61,14 +61,14 @@ firstmenu = {
         ['fa'] = '<i class="fad fa-hood-cloak"></i>',
         ['type'] = 'event', -- event / export
         ['content'] = 'holdup',
-        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false},
+        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {1,2,true,"STRING"}, arg_unpack = false},
     },
     ['SellDrag'] = {
         ['title'] = 'Sell Meth',
         ['fa'] = '<i class="fad fa-hand-holding-magic"></i>',
         ['type'] = 'event', -- event / export
         ['content'] = 'kill',
-        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false},
+        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {false,2,3,4}, arg_unpack = false},
     },
 }
 secondmenu = {
@@ -84,14 +84,14 @@ secondmenu = {
         ['fa'] = '<i class="fad fa-hood-cloak"></i>',
         ['type'] = 'event', -- event / export
         ['content'] = 'holdup',
-        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false},
+        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {1,true,3,4}, arg_unpack = false},
     },
     ['SellDrag'] = {
         ['title'] = 'Sell Meth',
         ['fa'] = '<i class="fad fa-hand-holding-magic"></i>',
         ['type'] = 'event', -- event / export
         ['content'] = 'kill',
-        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false},
+        ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {1,2,3,4}, arg_unpack = false},
     },
 }
 multimenu['FIRST MENU TITLE'] = firstmenu
