@@ -91,7 +91,7 @@ TriggerEvent('renzu_contextmenu:insertmulti',multimenu,"MENU TITLE","ENTITY",tru
 
 # SHOW THE MENU
 - the Data must be populated first using the exports sample above
-```TriggerEvent('renzu_contextmenu:show') ```
+- ```TriggerEvent('renzu_contextmenu:show') ```
 
 # CLOSE MENU
 ```TriggerEvent('renzu_contextmenu:close')```
