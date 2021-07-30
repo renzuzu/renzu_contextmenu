@@ -1,5 +1,5 @@
 # renzu_contextmenu
-FIVEM - CONTEXTMENU NUI. Targeting Purpose
+FIVEM - CONTEXTMENU NUI. Targeting or Other Interaction Purpose
 
 # SAMPLE USAGE SINGLE EXPORT
 
