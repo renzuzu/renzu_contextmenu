@@ -18,7 +18,7 @@ uidata = {
         ['title'] = 'EXPORT SAMPLE',
         ['fa'] = '<i class="fad fa-question-square"></i>',
         ['type'] = 'export', -- event / export
-        ['content'] = 'ask', -- important to rename this, this will be the id of submenu, this will be also the event if using event type, if using export using only as div id
+        ['content'] = 'ask', -- EVENT
         ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false, exports = 'exports["cd_keymaster"]:StartKeyMaster'}, -- WITHOUT ()
     },
     ['Steal'] = {
@@ -53,7 +53,7 @@ firstmenu = {
         ['title'] = 'EXPORT SAMPLE',
         ['fa'] = '<i class="fad fa-question-square"></i>',
         ['type'] = 'export', -- event / export
-        ['content'] = 'ask', -- important to rename this, this will be the id of submenu, this will be also the event if using event type, if using export using only as div id
+        ['content'] = 'ask', -- EVENT
         ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false, exports = 'exports["cd_keymaster"]:StartKeyMaster'},
     },
     ['Steal'] = {
@@ -76,7 +76,7 @@ secondmenu = {
         ['title'] = 'EXPORT SAMPLE',
         ['fa'] = '<i class="fad fa-question-square"></i>',
         ['type'] = 'export', -- event / export
-        ['content'] = 'ask', -- important to rename this, this will be the id of submenu, this will be also the event if using event type, if using export using only as div id
+        ['content'] = 'ask', -- EVENT
         ['variables'] = {server = false, send_entity = true, onclickcloseui = true, custom_arg = {}, arg_unpack = false, exports = 'exports["cd_keymaster"]:StartKeyMaster'},
     },
     ['Steal'] = {
