@@ -13,9 +13,6 @@ body * {
   padding:0;
 }
 
-/* HTML Nav Styles */
-/* HTML Nav Styles */
-/* HTML Nav Styles */
 nav menuitem {
   position:relative;
   display:block;
@@ -31,29 +28,18 @@ nav > menu { display:flex; }
 
 nav > menu > menuitem { pointer-events: all; opacity:1; }
 menu menuitem a { white-space:nowrap; display:block; }
-  
-/* menuitem:hover > menu {
-  pointer-events:initial;
-} */
-/* menuitem:hover > menu > menuitem,
-menu:hover > menuitem{
-  opacity:1;
-} */
 nav > menu > menuitem menuitem menu {
   will-change: transform;
   transform:translateX(100%);
   top:0; right:0;
   z-index: 1;
 }
-/* User Styles Below Not Required */
-/* User Styles Below Not Required */
-/* User Styles Below Not Required */
 
 nav {
   position: relative;
     top: 50%;
     /* left: 70%; */
-    margin-left: 65vw;
+    margin-left: 55vw;
     margin-top: 30vh;
     overflow: hidden;
     /* width: auto; */

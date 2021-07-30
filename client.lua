@@ -1,28 +1,18 @@
 local open = false
 
-RegisterNUICallback('close', function(data, cb)
-    open = false
-    SendNUIMessage({type = "reset", content = true})
-    SetNuiFocus(false,false)
-    SetNuiFocusKeepInput(false)
-    if config.UsingRayzoneTarget then
-        TriggerEvent('renzu_rayzone:close')
-    end
-end)
-
 RegisterNetEvent('renzu_contextmenu:insert')
 AddEventHandler('renzu_contextmenu:insert', function(table,title,entity,clear)
     local table = {
         content = table,
-        k = title,
-        entity = entity,
-        clear = clear
+        k = title or "TITLE MISSING",
+        entity = entity or -1,
+        clear = clear or false
     }
     SendNUIMessage({type = "insert", content = table})
 end)
 
 RegisterNetEvent('renzu_contextmenu:insertmulti')
-AddEventHandler('renzu_contextmenu:insertmulti', function(table,title,entity,clear)
+AddEventHandler('renzu_contextmenu:insertmulti', function(table,entity,clear)
     for k,v in pairs(table) do
         local t = {
             content = v,
@@ -51,6 +41,9 @@ function ReceiveData(data)
         if v == data.content then
             foundevent = true
         end
+        if data.variables.exports ~= nil and v == data.variables.exports then
+            foundevent = true
+        end
     end
     print(data.content)
     if not foundevent and config.WhitelistEvents then return end
@@ -63,7 +56,7 @@ function ReceiveData(data)
         end
     end
     Wait(100)
-    if data.variables.server then -- is this a server event?
+    if data.type == 'event' and data.variables.server then -- is this a server event?
         if data.variables.send_entity then -- pass the entity only ?
             TriggerServerEvent(data.content,data.variables.entity)
         else -- else pass the whole variables for custom table etc..
@@ -73,7 +66,7 @@ function ReceiveData(data)
                 TriggerServerEvent(data.content,data.variables.custom_arg)
             end
         end
-    else -- else client event only
+    elseif data.type == 'event' and not data.variables.server then -- else client event only
         if data.variables.send_entity then -- pass the entity only ?
             TriggerEvent(data.content,data.variables.entity)
         else -- else pass the whole variables for custom table etc..
@@ -83,11 +76,21 @@ function ReceiveData(data)
                 TriggerEvent(data.content,data.variables.custom_arg)
             end
         end
+    elseif data.type == 'export' and data.variables.exports ~= nil then
+        TriggerExport(data.variables.exports,data.variables.custom_arg)
     end
 end
 
 RegisterNetEvent('renzu_contextmenu:close')
-AddEventHandler('renzu_contextmenu:close', function(table)
+AddEventHandler('renzu_contextmenu:close', function()
+    close()
+end)
+
+RegisterNUICallback('close', function(data)
+    close()
+end)
+
+function close()
     open = false
     SendNUIMessage({type = "reset", content = true})
     SetNuiFocus(false,false)
@@ -95,7 +98,7 @@ AddEventHandler('renzu_contextmenu:close', function(table)
     if config.UsingRayzoneTarget then
         TriggerEvent('renzu_rayzone:close')
     end
-end)
+end
 
 function unfuck(...)
     local a = {...}
@@ -104,6 +107,10 @@ function unfuck(...)
         table.insert(t,v)
     end
     return table.unpack(t)
+end
+
+function TriggerExport(v,var)
+    return assert(load('return '..v..'(...)'))(var)
 end
 
 CreateThread(function()
