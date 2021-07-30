@@ -98,7 +98,7 @@ multimenu['FIRST MENU TITLE'] = firstmenu
 multimenu['SECOND MENU TITLE'] = secondmenu
 ```
 ```
-TriggerEvent('renzu_contextmenu:insertmulti',multimenu,"MENU TITLE","ENTITY",true)
+TriggerEvent('renzu_contextmenu:insertmulti',multimenu,"ENTITY",true)
 ```
 # Result 
 - ![ezgif-7-bf45a61bf40c](https://user-images.githubusercontent.com/82306584/127672457-6fbbab27-9538-41b0-8afd-2f1ab2eb3e08.gif)
