@@ -1,3 +1,6 @@
+* {
+  transform: translateZ(0);
+}
 html, body{
   padding:0px;
   margin:0px;
@@ -37,6 +40,7 @@ menu:hover > menuitem{
   opacity:1;
 } */
 nav > menu > menuitem menuitem menu {
+  will-change: transform;
   transform:translateX(100%);
   top:0; right:0;
   z-index: 1;
@@ -49,7 +53,7 @@ nav {
   position: relative;
     top: 50%;
     /* left: 70%; */
-    margin-left: 70vw;
+    margin-left: 65vw;
     margin-top: 30vh;
     overflow: hidden;
     /* width: auto; */
@@ -63,7 +67,6 @@ nav a {
   background:rgba(11, 39, 63, 0.85);
   color:#FFF;
   min-width:190px;
-  transition: background 0.5s, color 0.5s, transform 0.5s;
   margin:0px 0px 0px 0px;
   padding:20px 40px;
   box-sizing:border-box;
@@ -103,7 +106,8 @@ menuitem {
 }
 
 nav > menu > menuitem > menu > menuitem{
-  transition: transform 0.6s, opacity 0.6s;
+  will-change: auto;
+  transition: transform 100ms linear, opacity 100ms linear;
   transform:translateY(15%);
   opacity:1;
   z-index: 1;
@@ -123,13 +127,15 @@ nav > menu > menuitem > menu > menuitem:hover {
 }
 
 menuitem > menu > menuitem > menu > menuitem{
-  transition: transform 0.6s, opacity 0.6s;
+  will-change: auto;
+  transition: transform 100ms linear, opacity 100ms linear;
   transform:translateX(195px) translateY(0%);
   opacity: 0;
   z-index: 1;
 } 
 menuitem > menu > menuitem:hover > menu > menuitem,
-menuitem > menu > menuitem.hover > menu > menuitem{  
+menuitem > menu > menuitem.hover > menu > menuitem{
+  will-change: transform;
   transform: translateX(0) translateY(0%);
   opacity: 1;
   z-index: 999;
