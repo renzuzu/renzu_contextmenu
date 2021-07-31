@@ -65,8 +65,13 @@ function close() {
 }
 
 var current = undefined
+var clearing = false
 window.addEventListener('message', function (table) {
 	let event = table.data;
+	clearing = false
+	if (event.content.clear && event.content.k != undefined) {
+		window.location.reload(false);
+	}
 	if (event.type == 'insert') {
 		show(event.content)
 	}

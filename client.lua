@@ -28,6 +28,25 @@ RegisterNetEvent('renzu_contextmenu:show')
 AddEventHandler('renzu_contextmenu:show', function(table,title,entity,clear)
     SendNUIMessage({type = "show", content = true})
     SetNuiFocus(true,true)
+    open = true
+    CreateThread(function()
+        while open and config.disablemouse do
+            DisableControlAction(1, 1, true)
+            DisableControlAction(1, 2, true)
+            Wait(5)
+        end
+        return
+    end)
+    CreateThread(function()
+        while open do -- prevent overlapping nui focus to other resources
+            SetNuiFocus(true,true)
+            SetNuiFocusKeepInput(false)
+            Wait(100)
+        end
+        SetNuiFocus(false,false)
+        SetNuiFocusKeepInput(false)
+        return
+    end)
 end)
 
 RegisterNUICallback('receivedata', function(data, cb)
@@ -54,7 +73,9 @@ function ReceiveData(data)
         if config.UsingRayzoneTarget then
             TriggerEvent('renzu_rayzone:close')
         end
+        open = false
     end
+    print("EVENT")
     Wait(100)
     if data.type == 'event' and data.variables.server then -- is this a server event?
         if data.variables.send_entity then -- pass the entity only ?
@@ -92,12 +113,16 @@ end)
 
 function close()
     open = false
+    Wait(10)
     SendNUIMessage({type = "reset", content = true})
     SetNuiFocus(false,false)
     SetNuiFocusKeepInput(false)
     if config.UsingRayzoneTarget then
         TriggerEvent('renzu_rayzone:close')
     end
+    Wait(1000)
+    SetNuiFocus(false,false)
+    SetNuiFocusKeepInput(false)
 end
 
 function unfuck(...)
