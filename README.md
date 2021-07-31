@@ -44,6 +44,13 @@ uidata = {
  - MENU TITLE : (string) eg. My Menu Name
 - ENTITY : (ex. PlayerPedId())
 - Clear: bool: True or false | Clear Any Existing Saved menus
+- Clear use  cases: 
+local oldentity
+if oldentity == nil or oldentity ~= entity then
+    oldentity = entity
+    clear = true
+end
+- the entity example is the current target.
  ```
 - RESULT
 - ![ezgif-7-8fbc6c927f43](https://user-images.githubusercontent.com/82306584/127671328-68c72bb7-719f-4aab-a907-bca1ddb917dc.gif)
