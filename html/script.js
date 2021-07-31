@@ -1,18 +1,19 @@
 var menus = []
 var sound = false
+var volume = 0.4
 function nospace(str) {
 	return str.replace(/[^a-z0-9]/gi,'');
 }
 
 var playing = ''
 function PlaySound(string) {
-	if (!sound) { return }
+	if (sound == 'false') { return }
     var audioPlayer = null;
     if (audioPlayer != null) {
         audioPlayer.pause();
     }
     audioPlayer = new Audio("./audio/" + string + ".ogg");
-    audioPlayer.volume = 0.8;
+    audioPlayer.volume = Number(volume);
 	if (playing == '' || playing !== string) {
 		playing = string
 		setTimeout(function(){
@@ -76,8 +77,11 @@ window.addEventListener('message', function (table) {
 		window.location.reload(false);
 	}
 	if (event.type == 'sound') {
-		sound = event.content
-		localStorage.setItem("sound", event.content);
+		sound = ""+event.content.sound+"";
+		volume = ""+event.content.volume+"";
+		localStorage.removeItem("sound");
+		localStorage.setItem("sound", ""+event.content.sound+"");
+		localStorage.setItem("volume", ""+event.content.volume+"");
 	}
 });
 $("#close").click(function(){
@@ -85,4 +89,5 @@ $("#close").click(function(){
 });
 setTimeout(function(){
 	sound = localStorage.getItem("sound");
+	volume = localStorage.getItem("volume");
  }, 400);

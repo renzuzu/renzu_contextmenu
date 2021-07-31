@@ -115,5 +115,5 @@ end
 
 CreateThread(function()
     Wait(1000)
-    SendNUIMessage({type = "sound", content = config.MenuSounds})
+    SendNUIMessage({type = "sound", content = {sound = config.MenuSounds, volume = config.MenuVolume}})
 end)
