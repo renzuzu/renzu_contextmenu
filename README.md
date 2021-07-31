@@ -38,7 +38,7 @@ uidata = {
 },
  ```
  ```
- TriggerEvent('renzu_contextmenu:insert',uidata,"MENU TITLE","ENTITY",true)
+ TriggerEvent('renzu_contextmenu:insert',uidata,"MENU TITLE","ENTITY",false)
  # EXPORT ARGS
  - DATA TABLE: the sample above eg. uidata
  - MENU TITLE : (string) eg. My Menu Name
@@ -111,7 +111,7 @@ multimenu['FIRST MENU TITLE'] = firstmenu
 multimenu['SECOND MENU TITLE'] = secondmenu
 ```
 ```
-TriggerEvent('renzu_contextmenu:insertmulti',multimenu,"ENTITY",true)
+TriggerEvent('renzu_contextmenu:insertmulti',multimenu,"ENTITY",false)
  # MULTI EXPORT ARGS
  - DATA TABLE: the sample above eg. uidata
 - ENTITY : (ex. PlayerPedId()) 
