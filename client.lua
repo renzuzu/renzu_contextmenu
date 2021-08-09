@@ -49,6 +49,16 @@ AddEventHandler('renzu_contextmenu:show', function(table,title,entity,clear)
     end)
 end)
 
+RegisterNetEvent('renzu_contextmenu:clear')
+AddEventHandler('renzu_contextmenu:clear', function()
+    while open do Wait(1) end
+    if not open then
+        SendNUIMessage({type = "reset", content = true})
+        SetNuiFocus(false,false)
+        SetNuiFocusKeepInput(false)
+    end
+end)
+
 RegisterNUICallback('receivedata', function(data, cb)
     ReceiveData(data)
 end)
@@ -75,9 +85,8 @@ function ReceiveData(data)
         end
         open = false
     end
-    print("EVENT")
     Wait(100)
-    if data.type == 'event' and data.variables.server then -- is this a server event?
+    if data.type == 'event' and data.variables.server and data.variables.server ~= 0 then -- is this a server event?
         if data.variables.send_entity then -- pass the entity only ?
             TriggerServerEvent(data.content,data.variables.entity)
         else -- else pass the whole variables for custom table etc..
@@ -87,7 +96,7 @@ function ReceiveData(data)
                 TriggerServerEvent(data.content,data.variables.custom_arg)
             end
         end
-    elseif data.type == 'event' and not data.variables.server then -- else client event only
+    elseif data.type == 'event' and data.variables.server ~= true then -- else client event only
         if data.variables.send_entity then -- pass the entity only ?
             TriggerEvent(data.content,data.variables.entity)
         else -- else pass the whole variables for custom table etc..
