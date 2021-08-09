@@ -38,7 +38,20 @@ uidata = {
 },
  ```
  ```
- TriggerEvent('renzu_contextmenu:insert',uidata,"MENU TITLE","ENTITY",true)
+ TriggerEvent('renzu_contextmenu:insert',uidata,"MENU TITLE","ENTITY",false)
+ # EXPORT ARGS
+ - DATA TABLE: the sample above eg. uidata
+ - MENU TITLE : (string) eg. My Menu Name
+- ENTITY : (ex. PlayerPedId())
+- Clear: bool: True or false | Clear Any Existing Saved menus
+
+- Clear use  cases: 
+local oldentity
+if oldentity == nil or oldentity ~= entity then
+    oldentity = entity
+    clear = true
+end
+- the entity example is the current target.
  ```
 - RESULT
 - ![ezgif-7-8fbc6c927f43](https://user-images.githubusercontent.com/82306584/127671328-68c72bb7-719f-4aab-a907-bca1ddb917dc.gif)
@@ -98,7 +111,11 @@ multimenu['FIRST MENU TITLE'] = firstmenu
 multimenu['SECOND MENU TITLE'] = secondmenu
 ```
 ```
-TriggerEvent('renzu_contextmenu:insertmulti',multimenu,"ENTITY",true)
+TriggerEvent('renzu_contextmenu:insertmulti',multimenu,"ENTITY",false)
+ # MULTI EXPORT ARGS
+ - DATA TABLE: the sample above eg. uidata
+- ENTITY : (ex. PlayerPedId()) 
+- Clear: bool: True or false | Clear Any Existing Saved menus
 ```
 # Result 
 - ![ezgif-7-bf45a61bf40c](https://user-images.githubusercontent.com/82306584/127672457-6fbbab27-9538-41b0-8afd-2f1ab2eb3e08.gif)
