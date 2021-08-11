@@ -70,13 +70,13 @@ function ReceiveData(data)
         if v == data.content then
             foundevent = true
         end
-        if data.variables.exports ~= nil and v == data.variables.exports then
+        if data.variables ~= nil and data.variables.exports ~= nil and v == data.variables.exports then
             foundevent = true
         end
     end
     print(data.content)
     if not foundevent and config.WhitelistEvents then return end
-    if data.variables.onclickcloseui then -- close the ui before any trigger event, prevent UI bug from other NUI focus.
+    if data.variables ~= nil and data.variables.onclickcloseui then -- close the ui before any trigger event, prevent UI bug from other NUI focus.
         SendNUIMessage({type = "reset", content = true})
         SetNuiFocus(false,false)
         SetNuiFocusKeepInput(false)
@@ -86,7 +86,7 @@ function ReceiveData(data)
         open = false
     end
     Wait(100)
-    if data.type == 'event' and data.variables.server and data.variables.server ~= 0 then -- is this a server event?
+    if data.type == 'event' and data.variables ~= nil and data.variables.server and data.variables.server ~= 0 then -- is this a server event?
         if data.variables.send_entity then -- pass the entity only ?
             TriggerServerEvent(data.content,data.variables.entity)
         else -- else pass the whole variables for custom table etc..
@@ -96,18 +96,30 @@ function ReceiveData(data)
                 TriggerServerEvent(data.content,data.variables.custom_arg)
             end
         end
-    elseif data.type == 'event' and data.variables.server ~= true then -- else client event only
+    elseif data.type == 'event' and data.variables ~= nil and data.variables.server ~= true then -- else client event only
         if data.variables.send_entity then -- pass the entity only ?
+            print('tae2')
             TriggerEvent(data.content,data.variables.entity)
         else -- else pass the whole variables for custom table etc..
             if data.variables.arg_unpack then
+                print('tae3')
                 TriggerEvent(data.content,unfuck(table.unpack(data.variables.custom_arg)))
             else
+                print('tae1')
                 TriggerEvent(data.content,data.variables.custom_arg)
             end
         end
-    elseif data.type == 'export' and data.variables.exports ~= nil then
+    elseif data.type == 'export' and data.variables ~= nil and data.variables.exports ~= nil then
         TriggerExport(data.variables.exports,data.variables.custom_arg)
+    elseif data.type == 'shop' then
+        TriggerServerEvent("renzu_rayzone:shop",data)
+        SendNUIMessage({type = "reset", content = true})
+        SetNuiFocus(false,false)
+        SetNuiFocusKeepInput(false)
+        if config.UsingRayzoneTarget then
+            TriggerEvent('renzu_rayzone:close')
+        end
+        open = false
     end
 end
 
