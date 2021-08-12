@@ -98,14 +98,11 @@ function ReceiveData(data)
         end
     elseif data.type == 'event' and data.variables ~= nil and data.variables.server ~= true then -- else client event only
         if data.variables.send_entity then -- pass the entity only ?
-            print('tae2')
             TriggerEvent(data.content,data.variables.entity)
         else -- else pass the whole variables for custom table etc..
             if data.variables.arg_unpack then
-                print('tae3')
                 TriggerEvent(data.content,unfuck(table.unpack(data.variables.custom_arg)))
             else
-                print('tae1')
                 TriggerEvent(data.content,data.variables.custom_arg)
             end
         end

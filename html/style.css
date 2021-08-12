@@ -7,6 +7,9 @@ html, body{
   background:#191a1d00;
   font-family: 'Karla', sans-serif;
   width:100vw;
+  height: 100vw;
+  position: relative;
+  overflow: hidden;
 }
 body * {
   margin:0;
@@ -24,29 +27,60 @@ nav menuitem > menu {
   position: absolute;
   pointer-events:unset;
 }
-nav > menu { display:flex; }
+nav > menu {display:flex;position: relative;margin-top: 10%;margin-left: 55%;}
 
 nav > menu > menuitem { pointer-events: all; opacity:1; }
 menu menuitem a { white-space:nowrap; display:block; }
 nav > menu > menuitem menuitem menu {
   will-change: transform;
   transform:translateX(100%);
-  top:0; right:0;
+  top: 0;
+  right:0;
   z-index: 1;
+  max-height: 550px;
+  overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+  width: 1em;
+}
+ 
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 30px;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#02346d),
+    to(#07bbd3)
+  );
+  box-shadow: inset 2px 2px 2px rgba(255, 255, 255, 0.25),
+    inset -2px -2px -2px rgba(0, 0, 0, 0.25);
 }
 
 nav {
   position: relative;
-    top: 50%;
-    /* left: 70%; */
-    margin-left: 55vw;
-    margin-top: 30vh;
-    overflow: hidden;
-    /* width: auto; */
-    /* height: 100%; */
-    /* min-width: 30vw; */
-    min-height: 500px;
-    display: inline-block;
+  /* top: 50%; */
+  /* left: 70%; */
+  /* margin-left: 55vw; */
+  /* margin-top: 30vh; */
+  overflow: hidden;
+  /* width: auto; */
+  height: 100%;
+  /* min-width: 30vw; */
+  min-height: 500px;
+  display: inline-block;
 }
 
 nav a {
