@@ -1,6 +1,7 @@
 * {
   transform: translateZ(0);
 }
+:root { --scroll: 0px;}
 html, body{
   padding:0px;
   margin:0px;
@@ -54,7 +55,7 @@ body::-webkit-scrollbar-thumb {
   outline: 1px solid slategrey;
 }
 ::-webkit-scrollbar {
-  width: 4px;
+  width: var(--scroll);
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 30px;
@@ -144,6 +145,7 @@ nav > menu > menuitem.hover > menu > menuitem{
 nav > menu > menuitem > menu > menuitem:hover ,
 nav > menu > menuitem > menu > menuitem:hover {
   z-index: 999;
+  --scroll: 4px;
 }
 
 menuitem > menu > menuitem > menu > menuitem{
@@ -159,6 +161,7 @@ menuitem > menu > menuitem.hover > menu > menuitem{
   transform: translateX(0) translateY(0%);
   opacity: 1;
   z-index: 999;
+  --scroll: 4px;
   margin: 0px 10px 10px 10px;
   box-shadow: #b1b1b1 0px 0px 4.5px 1.5px;
   border-radius: 5px;
