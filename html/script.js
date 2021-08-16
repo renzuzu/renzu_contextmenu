@@ -119,8 +119,8 @@ function show(event,isback) {
 	}
 	if (menus[event.k] == undefined && event.k !== undefined && event.k !== '') {
 		menus[event.k] = event.content
-		var main_fa = '<i class="fad fa-bars"></i>'
-		if (event.main_fa !== false) {
+		var main_fa = '<i class="fad fa-tasks-alt"></i>'
+		if (event.main_fa !== false && event.main_fa !== undefined) {
 			main_fa = event.main_fa
 		}
 		$("#menu").prepend('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+nospace(event.k)+'" class="switch" style="padding: 20px 60px;">'+main_fa+' '+event.k+'</a><menu id="'+nospace(event.k)+'">');

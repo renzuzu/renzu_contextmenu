@@ -14,6 +14,9 @@ end)
 RegisterNetEvent('renzu_contextmenu:insertmulti')
 AddEventHandler('renzu_contextmenu:insertmulti', function(table,entity,clear)
     for k,v in pairs(table) do
+        if v.fa == nil then
+            v.fa = config.defaultFA
+        end
         local t = {
             content = v,
             k = k or "TITLE MISSING",
@@ -148,7 +151,7 @@ function unfuck(...)
     local a = {...}
     local t = {}
     for k,v in pairs(a) do
-        print(v == `street`,v,`street`)
+        --print(v == `street`,v,`street`)
         if v == `street` then
             print("changing")
             local c = GetEntityCoords(PlayerPedId())
