@@ -18,8 +18,10 @@ AddEventHandler('renzu_contextmenu:insertmulti', function(table,entity,clear)
             content = v,
             k = k or "TITLE MISSING",
             entity = entity or -1,
-            clear = clear or false
+            clear = clear or false,
+            main_fa = v.main_fa or false
         }
+        v.main_fa = nil
         SendNUIMessage({type = "insert", content = t})
     end
 end)
@@ -74,7 +76,6 @@ function ReceiveData(data)
             foundevent = true
         end
     end
-    print(data.content)
     if not foundevent and config.WhitelistEvents then return end
     if data.variables ~= nil and data.variables.onclickcloseui then -- close the ui before any trigger event, prevent UI bug from other NUI focus.
         SendNUIMessage({type = "reset", content = true})
@@ -147,6 +148,24 @@ function unfuck(...)
     local a = {...}
     local t = {}
     for k,v in pairs(a) do
+        print(v == `street`,v,`street`)
+        if v == `street` then
+            print("changing")
+            local c = GetEntityCoords(PlayerPedId())
+            v = GetStreetNameFromHashKey(GetStreetNameAtCoord(c.x,c.y,c.z))
+            print(v)
+        end
+        if v == `coord` then
+            print('changing')
+            v = GetEntityCoords(PlayerPedId())
+            print(v)
+        end
+        if v == `ent` then
+            v = self.target_entity
+        end
+        if v == `myped` then
+            v = PlayerPedId()
+        end
         table.insert(t,v)
     end
     return table.unpack(t)

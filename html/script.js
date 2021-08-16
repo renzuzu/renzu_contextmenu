@@ -27,31 +27,139 @@ function send(v,a) {
 	var data = {table:v,variables:a};
 	$.post("https://renzu_contextmenu/receivedata",JSON.stringify(data),function(datab){});
 }
-function show(event) {
-	if (menus[event.k] == undefined) {
-		menus[event.k] = event.content
-		$("#menu").prepend('<menuitem onmouseover="PlaySound(`hover`);"><a class="switch"><i class="fad fa-bars"></i> '+event.k+'</a><menu id="'+nospace(event.k)+'">');
-		for (const i in menus[event.k]) {
-			menu[menus[event.k][i]['title']] = true
-			if (menus[event.k][i]['variables'] !== undefined) {
-				if (menus[event.k][i]['variables'].send_entity) {
-					menus[event.k][i]['variables'].entity = event.entity
-				}
-				menus[event.k][i]['variables'].path = {name:event.k,title:i}
+// function show(event) {
+// 	if (menus[event.k] == undefined && event.k !== undefined && event.k !== '') {
+// 		menus[event.k] = event.content
+// 		var main_fa = '<i class="fad fa-bars"></i>'
+// 		if (event.main_fa !== false) {
+// 			main_fa = event.main_fa
+// 		}
+// 		$("#menu").prepend('<menuitem onmouseover="PlaySound(`hover`);"><a class="switch" style="padding: 20px 60px;">'+main_fa+' '+event.k+'</a><menu id="'+nospace(event.k)+'">');
+// 		var menucount = 0
+// 		for (const i in menus[event.k]) {
+// 			menucount = menucount + 1
+// 			menu[menus[event.k][i]['title']] = true
+// 			if (menus[event.k][i]['variables'] !== undefined) {
+// 				if (menus[event.k][i]['variables'].send_entity) {
+// 					menus[event.k][i]['variables'].entity = event.entity
+// 				}
+// 				menus[event.k][i]['variables'].path = {name:event.k,title:i}
+// 			}
+// 			if (menus[event.k][i]['fa'] == undefined) {
+// 				menus[event.k][i]['fa'] = '<i class="fad fa-cog"></i>';
+// 			}
+// 			$('#'+nospace(event.k)+'').append('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
+// 			$("#"+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+"").click(function(){
+// 				setTimeout(function(){ 
+// 					send(menus[event.k][i],menus[event.k][i]["variables"]);
+// 				 }, 500);
+// 				document.getElementById("nav").style.display = 'none';
+// 				PlaySound('accept')
+// 			});
+// 		}
+// 		$("#menu").prepend('</menu></menuitem>');
+// 		console.log(menucount,'gago')
+// 		if (menucount == 0) {
+// 			$.post("https://renzu_contextmenu/close",{},function(datab){});
+// 			window.location.reload(false);
+// 		}
+// 	}
+// }
+
+var back = []
+function ShowSubmenu(event) {
+	var menucount = 0
+	for (const i in menus[event.k]) {
+		menucount = menucount + 1
+		menu[menus[event.k][i]['title']] = true
+		if (menus[event.k][i]['variables'] !== undefined) {
+			if (menus[event.k][i]['variables'].send_entity) {
+				menus[event.k][i]['variables'].entity = event.entity
 			}
-			if (menus[event.k][i]['fa'] == undefined) {
-				menus[event.k][i]['fa'] = '<i class="fad fa-cog"></i>';
-			}
-			$('#'+nospace(event.k)+'').append('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
-			$("#"+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+"").click(function(){
-				setTimeout(function(){ 
-					send(menus[event.k][i],menus[event.k][i]["variables"]);
-				 }, 500);
-				document.getElementById("nav").style.display = 'none';
-				PlaySound('accept')
-			});
+			menus[event.k][i]['variables'].path = {name:event.k,title:i}
 		}
-		$("#menu").prepend('</menu></menuitem>');
+		if (menus[event.k][i]['fa'] == undefined) {
+			menus[event.k][i]['fa'] = '<i class="fad fa-cog"></i>';
+		}
+		//$('#'+nospace(event.k)+'').append('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
+		$("#menu").prepend('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'" class="switch" style="padding: 20px 60px;">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
+		$('#'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'').click(function(){
+			setTimeout(function(){ 
+				send(menus[event.k][i],menus[event.k][i]["variables"]);
+			 }, 500);
+			document.getElementById("nav").style.display = 'none';
+			PlaySound('accept')
+		});
+	}
+	$("#menu").prepend('<menuitem>\
+		<a id="close-'+nospace(event.k)+'"><i class="fad fa-window-close"></i> BACK</a>\
+	</menuitem>');
+	$('#close-'+nospace(event.k)+'').click(function() {
+		document.getElementById("menu").innerHTML = '';
+		PlaySound('close')
+		menus[event.k] = undefined
+		setTimeout(function() {
+			for (const i in back) {
+				menus[i] = undefined
+				show(back[i],true);
+			}
+			$("#menu").append('<menuitem>\
+				<a id="close2"><i class="fad fa-window-close"></i> Close</a>\
+			</menuitem>');
+			$("#close2").click(function(){
+				close();
+			});
+		 }, 500);
+	});
+}
+
+function show(event,isback) {
+	if (!isback) {
+		back[event.k] = event
+	}
+	if (menus[event.k] == undefined && event.k !== undefined && event.k !== '') {
+		menus[event.k] = event.content
+		var main_fa = '<i class="fad fa-bars"></i>'
+		if (event.main_fa !== false) {
+			main_fa = event.main_fa
+		}
+		$("#menu").prepend('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+nospace(event.k)+'" class="switch" style="padding: 20px 60px;">'+main_fa+' '+event.k+'</a><menu id="'+nospace(event.k)+'">');
+		$("#"+nospace(event.k)+"").click(function(){
+			document.getElementById("menu").innerHTML = '';
+			setTimeout(function(){ 
+				ShowSubmenu(event);
+			 }, 500);
+			//document.getElementById("nav").style.display = 'none';
+			PlaySound('accept')
+		});
+		// var menucount = 0
+		// for (const i in menus[event.k]) {
+		// 	menucount = menucount + 1
+		// 	menu[menus[event.k][i]['title']] = true
+		// 	if (menus[event.k][i]['variables'] !== undefined) {
+		// 		if (menus[event.k][i]['variables'].send_entity) {
+		// 			menus[event.k][i]['variables'].entity = event.entity
+		// 		}
+		// 		menus[event.k][i]['variables'].path = {name:event.k,title:i}
+		// 	}
+		// 	if (menus[event.k][i]['fa'] == undefined) {
+		// 		menus[event.k][i]['fa'] = '<i class="fad fa-cog"></i>';
+		// 	}
+		// 	$('#'+nospace(event.k)+'').append('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
+		// 	$("#"+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+"").click(function(){
+		// 		setTimeout(function(){ 
+		// 			send(menus[event.k][i],menus[event.k][i]["variables"]);
+		// 		 }, 500);
+		// 		document.getElementById("nav").style.display = 'none';
+		// 		PlaySound('accept')
+		// 	});
+		// }
+		// $("#menu").prepend('</menu></menuitem>');
+		// console.log(menucount,'gago')
+		// if (menucount == 0) {
+		// 	$.post("https://renzu_contextmenu/close",{},function(datab){});
+		// 	window.location.reload(false);
+		// }
 	}
 }
 
