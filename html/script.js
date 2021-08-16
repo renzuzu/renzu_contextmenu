@@ -71,25 +71,27 @@ function ShowSubmenu(event) {
 	var menucount = 0
 	for (const i in menus[event.k]) {
 		menucount = menucount + 1
-		menu[menus[event.k][i]['title']] = true
-		if (menus[event.k][i]['variables'] !== undefined) {
-			if (menus[event.k][i]['variables'].send_entity) {
-				menus[event.k][i]['variables'].entity = event.entity
+		if (menus[event.k][i]['title']) {
+			menu[menus[event.k][i]['title']] = true
+			if (menus[event.k][i]['variables'] !== undefined) {
+				if (menus[event.k][i]['variables'].send_entity) {
+					menus[event.k][i]['variables'].entity = event.entity
+				}
+				menus[event.k][i]['variables'].path = {name:event.k,title:i}
 			}
-			menus[event.k][i]['variables'].path = {name:event.k,title:i}
+			if (menus[event.k][i]['fa'] == undefined) {
+				menus[event.k][i]['fa'] = '<i class="fad fa-cog"></i>';
+			}
+			//$('#'+nospace(event.k)+'').append('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
+			$("#menu").prepend('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'" class="switch" style="padding: 20px 60px;">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
+			$('#'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'').click(function(){
+				setTimeout(function(){ 
+					send(menus[event.k][i],menus[event.k][i]["variables"]);
+				}, 500);
+				document.getElementById("nav").style.display = 'none';
+				PlaySound('accept')
+			});
 		}
-		if (menus[event.k][i]['fa'] == undefined) {
-			menus[event.k][i]['fa'] = '<i class="fad fa-cog"></i>';
-		}
-		//$('#'+nospace(event.k)+'').append('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
-		$("#menu").prepend('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'" class="switch" style="padding: 20px 60px;">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
-		$('#'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'').click(function(){
-			setTimeout(function(){ 
-				send(menus[event.k][i],menus[event.k][i]["variables"]);
-			 }, 500);
-			document.getElementById("nav").style.display = 'none';
-			PlaySound('accept')
-		});
 	}
 	$("#menu").prepend('<menuitem>\
 		<a id="close-'+nospace(event.k)+'"><i class="fad fa-window-close"></i> BACK</a>\
