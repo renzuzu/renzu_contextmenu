@@ -44,7 +44,6 @@ function ShowSubmenu(event) {
 			if (menus[event.k][i]['fa'] == undefined) {
 				menus[event.k][i]['fa'] = '<i class="fad fa-cog"></i>';
 			}
-			console.log(menus[event.k][i]['title'],'tae')
 			//$('#'+nospace(event.k)+'').append('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
 			$("#menu").prepend('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'" class="switch" style="padding: 20px 60px;">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
 			$('#'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'').click(function(){
