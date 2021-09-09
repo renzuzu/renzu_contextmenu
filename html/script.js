@@ -87,7 +87,7 @@ function show(event,isback) {
 		if (event.main_fa !== false && event.main_fa !== undefined) {
 			main_fa = event.main_fa
 		}
-		$("#menu").prepend('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+nospace(event.k)+'" class="switch" style="padding: 20px 60px;">'+main_fa+' '+event.k+'</a><menu id="'+nospace(event.k)+'">');
+		$("#menu").prepend('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+nospace(event.k)+'" class="switch" style="padding: 20px 60px;">'+main_fa+' '+event.k+'</a>');
 		$("#"+nospace(event.k)+"").click(function(){
 			document.getElementById("header").innerHTML = event.header;
 			document.getElementById("menu").innerHTML = '';
