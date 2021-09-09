@@ -32,13 +32,13 @@ nav menuitem > menu {
   pointer-events:unset;
   /* height: 550px; */
   /* overflow: hidden; */
-  width: 800px;
-  right: 0;
+  width: 500px;
+  right: 40px;
 }
-nav > menu {display:flex;position: relative;margin-top: 0;margin-left: 25%;/* width: 100%; */}
+nav > menu {display:flex;position: relative;margin-top: 45px;margin-left: 25%;/* width: 100%; */}
 
 nav > menu > menuitem {pointer-events: all;opacity:1;height: 50vw;overflow-x: hidden;width: 120vw;margin-top: 3%;}
-menu menuitem a {white-space:nowrap;display:block;text-align: center;display: ;/* background: rgb(18 18 19); */}
+menu menuitem a {white-space: break-spaces;display:block;text-align: center;display: ;/* background: rgb(18 18 19); */font-size: 15px;/* width: 200px; */padding: 20px 30px !important;}
 nav > menu > menuitem menuitem menu {
   position: fixed;
   will-change: transform;
@@ -111,7 +111,6 @@ nav a:hover:before {
   content: '';
   top:0;left:0;
   position:absolute;
-  background:rgba(0, 0, 0, 0.2);
   width:100%;
   height:100%;
 }
@@ -136,6 +135,17 @@ nav menuitem > menu > menuitem > a + menu:after{
 menuitem {
   z-index: 700;
 }
+header > i {
+  position: initial !important;
+  font-size:35px !important;
+  box-shadow: unset !important;
+}
+
+header > svg {
+  position: initial !important;
+  font-size:35px !important;
+  box-shadow: unset !important;
+}
 
 nav > menu > menuitem > menu > menuitem{
   will-change: auto;
@@ -147,20 +157,24 @@ nav > menu > menuitem > menu > menuitem{
   margin: 5px;
   border-radius: 5px;
   float: right;
-  width: 35%;
+  width: 45%;
 }
 nav > menu > menuitem:hover > menu > menuitem,
 nav > menu > menuitem.hover > menu > menuitem{
   opacity: 1;
   z-index: 1;
   background: rgb(48,52,55);
-  background: linear-gradient(90deg, rgba(48,52,55,1) 0%, rgba(22,23,23,1) 100%);
+  background: linear-gradient(90deg, rgb(48 52 55 / 74%) 0%, rgb(22 23 23 / 82%) 100%);
+  background: rgb(66,66,66);
+  background: radial-gradient(circle, rgb(0 5 15 / 75%) 0%, rgb(4 12 15) 100%);
+  height: 60px;
 }
 
 nav > menu > menuitem > menu > menuitem:hover ,
 nav > menu > menuitem > menu > menuitem:hover {
   z-index: 999;
   --scroll: 4px;
+  background: rgba(0, 0, 0, 0.61);
 }
 
 menuitem > menu > menuitem > menu > menuitem{
@@ -186,6 +200,7 @@ menuitem > menu > menuitem.hover > menu > menuitem{
 menuitem > menu > menuitem > menu > menuitem,
 menuitem > menu > menuitem > menu > menuitem{
   z-index: 1;
+  background: radial-gradient(circle, rgb(27 92 138 / 75%) 0%, rgb(4 39 60) 100%);
 }
 
 svg {

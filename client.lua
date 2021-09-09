@@ -1,8 +1,9 @@
 local open = false
 
 RegisterNetEvent('renzu_contextmenu:insert')
-AddEventHandler('renzu_contextmenu:insert', function(table,title,entity,clear)
+AddEventHandler('renzu_contextmenu:insert', function(table,title,entity,clear,header)
     local table = {
+        header = header or '<i class="fas fa-eye"></i> INTERACTION',
         content = table,
         k = title or "TITLE MISSING",
         entity = entity or -1,
@@ -12,12 +13,13 @@ AddEventHandler('renzu_contextmenu:insert', function(table,title,entity,clear)
 end)
 
 RegisterNetEvent('renzu_contextmenu:insertmulti')
-AddEventHandler('renzu_contextmenu:insertmulti', function(table,entity,clear)
+AddEventHandler('renzu_contextmenu:insertmulti', function(table,entity,clear,header)
     for k,v in pairs(table) do
         if v.fa == nil then
             v.fa = config.defaultFA
         end
         local t = {
+            header = header or '<i class="fas fa-eye"></i> INTERACTION',
             content = v,
             k = k or "TITLE MISSING",
             entity = entity or -1,
