@@ -4,8 +4,8 @@ fx_version 'cerulean'
 game 'gta5'
 
 lua54 'on'
--- is_cfxv2 'yes'
--- use_fxv2_oal 'true'
+is_cfxv2 'yes'
+use_fxv2_oal 'true'
 
 ui_page {
     'html/index.html',

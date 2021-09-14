@@ -42,12 +42,16 @@ AddEventHandler('renzu_contextmenu:show', function(table,title,entity,clear)
             DisableControlAction(1, 2, true)
             Wait(5)
         end
+        while open and config.keepinput do
+            DisablePlayerFiring(PlayerId(),true)
+            Wait(0)
+        end
         return
     end)
     CreateThread(function()
         while open do -- prevent overlapping nui focus to other resources
             SetNuiFocus(true,true)
-            SetNuiFocusKeepInput(false)
+            SetNuiFocusKeepInput(config.keepinput)
             Wait(100)
         end
         SetNuiFocus(false,false)
@@ -91,7 +95,6 @@ function ReceiveData(data)
         end
         open = false
     end
-    Wait(100)
     if data.type == 'event' and data.variables ~= nil and data.variables.server and data.variables.server ~= 0 then -- is this a server event?
         if data.variables.send_entity then -- pass the entity only ?
             TriggerServerEvent(data.content,data.variables.entity)
@@ -137,7 +140,6 @@ end)
 
 function close()
     open = false
-    Wait(10)
     SendNUIMessage({type = "reset", content = true})
     SetNuiFocus(false,false)
     SetNuiFocusKeepInput(false)
@@ -183,4 +185,5 @@ end
 CreateThread(function()
     Wait(1000)
     SendNUIMessage({type = "sound", content = {sound = config.MenuSounds, volume = config.MenuVolume}})
+    return
 end)
