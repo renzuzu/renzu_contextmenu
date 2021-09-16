@@ -33,6 +33,7 @@ end)
 
 RegisterNetEvent('renzu_contextmenu:show')
 AddEventHandler('renzu_contextmenu:show', function(table,title,entity,clear)
+    Wait(100)
     SendNUIMessage({type = "show", content = true})
     SetNuiFocus(true,true)
     while open do Wait(0) open = false end
