@@ -52,8 +52,10 @@ AddEventHandler('renzu_contextmenu:show', function(table,title,entity,clear)
     end)
     CreateThread(function()
         while open do -- prevent overlapping nui focus to other resources
-            SetNuiFocus(true,true)
-            SetNuiFocusKeepInput(config.keepinput)
+            if not IsNuiFocused() then
+                SetNuiFocus(true,true)
+                SetNuiFocusKeepInput(config.keepinput)
+            end
             Wait(100)
         end
         SetNuiFocus(false,false)
