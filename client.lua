@@ -34,9 +34,12 @@ end)
 RegisterNetEvent('renzu_contextmenu:show')
 AddEventHandler('renzu_contextmenu:show', function(table,title,entity,clear)
     Wait(100)
+    while IsNuiFocused() do Wait(100) end
+    SetNuiFocus(false,false)
+    Wait(0)
     SendNUIMessage({type = "show", content = true})
     SetNuiFocus(true,true)
-    while open do Wait(0) open = false end
+    while open do Wait(500) open = false end
     open = true
     CreateThread(function()
         while open and config.disablemouse do
