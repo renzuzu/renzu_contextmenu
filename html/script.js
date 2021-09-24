@@ -142,3 +142,12 @@ setTimeout(function(){
 	sound = localStorage.getItem("sound");
 	volume = localStorage.getItem("volume");
  }, 400);
+
+ document.onkeyup = function (data) {
+	if (data.keyCode == '8') { // BACKSPACE
+		close()
+	}
+	if (data.keyCode == '27') { // ENTER
+		close()
+	}
+}
