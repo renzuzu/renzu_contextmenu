@@ -1,6 +1,7 @@
 var menus = []
 var sound = false
 var volume = 0.4
+var inputval = 1
 function nospace(str) {
 	return str.replace(/[^a-z0-9]/gi,'');
 }
@@ -24,11 +25,19 @@ function PlaySound(string) {
 }
 
 function send(v,a) {
+	v.inputval = inputval
 	var data = {table:v,variables:a};
 	$.post("https://renzu_contextmenu/receivedata",JSON.stringify(data),function(datab){});
 }
 
 var back = []
+
+function input(id) {
+	var el = document.getElementById(id+'_input').value;
+	inputval = el
+	console.log(el)
+}
+
 function ShowSubmenu(event) {
 	var menucount = 0
 	for (const i in menus[event.k]) {
@@ -44,13 +53,26 @@ function ShowSubmenu(event) {
 			if (menus[event.k][i]['fa'] == undefined) {
 				menus[event.k][i]['fa'] = '<i class="fad fa-cog"></i>';
 			}
+			var field = `<input id="`+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+`_input" type="text" value="1" style="
+			position: absolute;
+			top: 20%;
+			right: 1%;
+			width: 3vw;
+			padding: 5px;
+			margin: 5px;
+			border-radius: 10px;
+			text-align: center;
+			" oninput="input('`+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+`')">`
+			if (!event.input) {
+				field = ''
+			}
 			//$('#'+nospace(event.k)+'').append('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
-			$("#menu").prepend('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'" class="switch" style="padding: 20px 60px;">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a></menuitem>');
+			$("#menu").prepend('<menuitem onmouseover="PlaySound(`hover`);"><a id="'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'" class="switch" style="padding: 20px 60px;">'+menus[event.k][i]['fa']+' '+menus[event.k][i]['title']+'</a>'+field+'</menuitem>');
 			$('#'+menus[event.k][i]['title'].replace(/[^a-z0-9]/gi,'')+'').click(function(){
 				setTimeout(function(){ 
 					send(menus[event.k][i],menus[event.k][i]["variables"]);
 				}, 500);
-				document.getElementById("nav").style.display = 'none';
+				//document.getElementById("nav").style.display = 'none';
 				PlaySound('accept')
 			});
 		}
@@ -105,7 +127,7 @@ function close() {
 	document.getElementById("nav").style.display = 'none';
 	setTimeout(function(){
 		$.post("https://renzu_contextmenu/close",{},function(datab){});
-		window.location.reload(false);
+		//window.location.reload(false);
 	 }, 400);
 }
 

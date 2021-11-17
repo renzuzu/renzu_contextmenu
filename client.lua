@@ -7,7 +7,9 @@ AddEventHandler('renzu_contextmenu:insert', function(table,title,entity,clear,he
         content = table,
         k = title or "TITLE MISSING",
         entity = entity or -1,
-        clear = clear or false
+        clear = clear or false,
+        main_fa = v.main_fa or false,
+        input = v.input or false
     }
     SendNUIMessage({type = "insert", content = table})
 end)
@@ -24,7 +26,8 @@ AddEventHandler('renzu_contextmenu:insertmulti', function(table,entity,clear,hea
             k = k or "TITLE MISSING",
             entity = entity or -1,
             clear = clear or false,
-            main_fa = v.main_fa or false
+            main_fa = v.main_fa or false,
+            input = v.input or false
         }
         v.main_fa = nil
         SendNUIMessage({type = "insert", content = t})
@@ -107,9 +110,10 @@ function ReceiveData(data)
             TriggerServerEvent(data.content,data.variables.entity)
         else -- else pass the whole variables for custom table etc..
             if data.variables.arg_unpack then
+                table.insert(data.variables.custom_arg,data.inputval or false)
                 TriggerServerEvent(data.content,unfuck(table.unpack(data.variables.custom_arg)))
             else
-                TriggerServerEvent(data.content,data.variables.custom_arg)
+                TriggerServerEvent(data.content,data.variables.custom_arg,data.inputval)
             end
         end
     elseif data.type == 'event' and data.variables ~= nil and data.variables.server ~= true then -- else client event only
@@ -117,15 +121,16 @@ function ReceiveData(data)
             TriggerEvent(data.content,data.variables.entity)
         else -- else pass the whole variables for custom table etc..
             if data.variables.arg_unpack then
+                table.insert(data.variables.custom_arg,data.inputval or false)
                 TriggerEvent(data.content,unfuck(table.unpack(data.variables.custom_arg)))
             else
-                TriggerEvent(data.content,data.variables.custom_arg)
+                TriggerEvent(data.content,data.variables.custom_arg,data.inputval)
             end
         end
     elseif data.type == 'export' and data.variables ~= nil and data.variables.exports ~= nil then
-        TriggerExport(data.variables.exports,data.variables.custom_arg)
+        TriggerExport(data.variables.exports,data.variables.custom_arg,data.inputval)
     elseif data.type == 'shop' then
-        TriggerServerEvent("renzu_rayzone:shop",data)
+        TriggerServerEvent("renzu_rayzone:shop",data,data.inputval)
         SendNUIMessage({type = "reset", content = true})
         SetNuiFocus(false,false)
         SetNuiFocusKeepInput(false)
@@ -134,15 +139,19 @@ function ReceiveData(data)
         end
         open = false
     end
+    if data.variables ~= nil and data.variables.onclickcloseui then
+        TriggerEvent('renzu_contextmenu:close')
+    end
 end
 
 RegisterNetEvent('renzu_contextmenu:close')
 AddEventHandler('renzu_contextmenu:close', function()
+    print("GAGO")
     close()
 end)
 
 RegisterNUICallback('close', function(data)
-    close()
+    TriggerEvent('renzu_contextmenu:close')
 end)
 
 function close()
