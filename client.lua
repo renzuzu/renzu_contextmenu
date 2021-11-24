@@ -110,7 +110,7 @@ function ReceiveData(data)
             TriggerServerEvent(data.content,data.variables.entity)
         else -- else pass the whole variables for custom table etc..
             if data.variables.arg_unpack then
-                table.insert(data.variables.custom_arg,data.inputval or false)
+                table.insert(data.variables.custom_arg,data.inputval)
                 TriggerServerEvent(data.content,unfuck(table.unpack(data.variables.custom_arg)))
             else
                 TriggerServerEvent(data.content,data.variables.custom_arg,data.inputval)
@@ -171,17 +171,12 @@ function unfuck(...)
     local a = {...}
     local t = {}
     for k,v in pairs(a) do
-        --print(v == `street`,v,`street`)
         if v == `street` then
-            print("changing")
             local c = GetEntityCoords(PlayerPedId())
             v = GetStreetNameFromHashKey(GetStreetNameAtCoord(c.x,c.y,c.z))
-            print(v)
         end
         if v == `coord` then
-            print('changing')
             v = GetEntityCoords(PlayerPedId())
-            print(v)
         end
         if v == `ent` then
             v = self.target_entity

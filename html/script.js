@@ -1,7 +1,7 @@
 var menus = []
 var sound = false
 var volume = 0.4
-var inputval = 1
+var inputval = undefined
 function nospace(str) {
 	return str.replace(/[^a-z0-9]/gi,'');
 }
