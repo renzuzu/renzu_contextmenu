@@ -200,7 +200,10 @@ RegisterNetEvent('renzu_contextmenu:insert', function(table,title,entity,clear,h
     Insert(table,title,entity,clear,header)
 end)
 
-RegisterNetEvent('renzu_contextmenu:insertmulti')
-AddEventHandler('renzu_contextmenu:insertmulti', function(table,entity,clear,header)
+RegisterNetEvent('renzu_contextmenu:insertmulti', function(table,entity,clear,header)
     MultiInsert(table,entity,clear,header)
+end)
+
+RegisterNetEvent('renzu_contextmenu:close', function(table,title,entity,clear,header)
+    closeMenu()
 end)
