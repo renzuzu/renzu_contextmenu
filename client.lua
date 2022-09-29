@@ -1,7 +1,6 @@
 local open = false
 
-RegisterNetEvent('renzu_contextmenu:insert')
-AddEventHandler('renzu_contextmenu:insert', function(table,title,entity,clear,header)
+function Insert(table,title,entity,clear,header)
     local table = {
         header = header or '<i class="fas fa-eye"></i> INTERACTION',
         content = table,
@@ -12,10 +11,11 @@ AddEventHandler('renzu_contextmenu:insert', function(table,title,entity,clear,he
         input = v.input or false
     }
     SendNUIMessage({type = "insert", content = table})
-end)
+    MenuShow()
+end
+exports('Insert', Insert)
 
-RegisterNetEvent('renzu_contextmenu:insertmulti')
-AddEventHandler('renzu_contextmenu:insertmulti', function(table,entity,clear,header)
+function MultiInsert(table,entity,clear,header)
     for k,v in pairs(table) do
         if v.fa == nil then
             v.fa = config.defaultFA
@@ -32,10 +32,11 @@ AddEventHandler('renzu_contextmenu:insertmulti', function(table,entity,clear,hea
         v.main_fa = nil
         SendNUIMessage({type = "insert", content = t})
     end
-end)
+    MenuShow()
+end
+exports('MultiInsert', MultiInsert)
 
-RegisterNetEvent('renzu_contextmenu:show')
-AddEventHandler('renzu_contextmenu:show', function(table,title,entity,clear)
+function MenuShow()
     Wait(100)
     --while IsNuiFocused() do Wait(100) end
     SetNuiFocus(false,false)
@@ -68,10 +69,9 @@ AddEventHandler('renzu_contextmenu:show', function(table,title,entity,clear)
         SetNuiFocusKeepInput(false)
         return
     end)
-end)
+end
 
-RegisterNetEvent('renzu_contextmenu:clear')
-AddEventHandler('renzu_contextmenu:clear', function()
+RegisterNetEvent('renzu_contextmenu:clear', function()
     while open do Wait(1) end
     if not open then
         SendNUIMessage({type = "reset", content = true})
@@ -140,21 +140,15 @@ function ReceiveData(data)
         open = false
     end
     if data.variables ~= nil and data.variables.onclickcloseui then
-        TriggerEvent('renzu_contextmenu:close')
+        closeMenu()
     end
 end
 
-RegisterNetEvent('renzu_contextmenu:close')
-AddEventHandler('renzu_contextmenu:close', function()
-    print("GAGO")
-    close()
-end)
-
 RegisterNUICallback('close', function(data)
-    TriggerEvent('renzu_contextmenu:close')
+    closeMenu()
 end)
 
-function close()
+function closeMenu()
     open = false
     SendNUIMessage({type = "reset", content = true})
     SetNuiFocus(false,false)
@@ -166,6 +160,7 @@ function close()
     SetNuiFocus(false,false)
     SetNuiFocusKeepInput(false)
 end
+exports('closeMenu', closeMenu)
 
 function unfuck(...)
     local a = {...}
@@ -197,4 +192,18 @@ CreateThread(function()
     Wait(1000)
     SendNUIMessage({type = "sound", content = {sound = config.MenuSounds, volume = config.MenuVolume}})
     return
+end)
+
+-- Depricated But Still Useable as an event for easy conversion!
+
+RegisterNetEvent('renzu_contextmenu:insert', function(table,title,entity,clear,header)
+    Insert(table,title,entity,clear,header)
+end)
+
+RegisterNetEvent('renzu_contextmenu:insertmulti', function(table,entity,clear,header)
+    MultiInsert(table,entity,clear,header)
+end)
+
+RegisterNetEvent('renzu_contextmenu:close', function(table,title,entity,clear,header)
+    closeMenu()
 end)
