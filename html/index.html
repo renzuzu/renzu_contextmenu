@@ -13,14 +13,15 @@
       <header id="header" style="
             position: absolute;
     top: 30px;
-    right: 20.1vw;
+    right: 19.8vw;
     height: 4.2vh;
-    width: 340px;
-    background: #13191d80;
-    border: 4px solid rgba(255, 255, 255, .1);
-    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.882);
-    box-shadow: inset 0 0 2000px rgba(255, 255, 255, .1);
-    z-index: -1;
+    width: 350px;
+    background: #222;
+    background: rgb(4,38,71);
+    background: linear-gradient( 
+90deg
+ , rgba(4,38,71,1) 0%, rgba(0,42,97,0.9164040616246498) 35%, rgba(6,109,193,1) 100%);
+    z-index: 1;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     color: #ffffff;
@@ -34,14 +35,16 @@
         <menu>
           <menuitem id="demo1">
             <menu id="menu">
-              <menuitem class="menuitem">
+              <menuitem>
                 <a id="close"><i class="fad fa-window-close"></i> CLOSE</a>
               </menuitem>
             </menu>
           </menuitem>
         </menu>
       </nav>
-      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="nui://game/ui/jquery.js"></script>
+
+      <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
       <script src="script.js"></script>
     </body>
 </html>

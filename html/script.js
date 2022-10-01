@@ -35,13 +35,13 @@ var back = []
 function input(id) {
 	var el = document.getElementById(id+'_input').value;
 	inputval = el
+	console.log(el)
 }
 
 function ShowSubmenu(event) {
 	var menucount = 0
 	for (const i in menus[event.k]) {
 		menucount = menucount + 1
-		console.log(event.k);
 		if (menus[event.k][i]['title']) {
 			menu[menus[event.k][i]['title']] = true
 			if (menus[event.k][i]['variables'] !== undefined) {
@@ -105,7 +105,6 @@ function show(event,isback) {
 	}
 	if (menus[event.k] == undefined && event.k !== undefined && event.k !== '') {
 		menus[event.k] = event.content
-		console.log(event.content)
 		var main_fa = '<i class="fad fa-tasks-alt"></i>'
 		if (event.main_fa !== false && event.main_fa !== undefined) {
 			main_fa = event.main_fa
@@ -170,7 +169,7 @@ setTimeout(function(){
 	if (data.keyCode == '8') { // BACKSPACE
 		close()
 	}
-	// if (data.keyCode == '27') { // ENTER
-	// 	close()
-	// }
+	if (data.keyCode == '27') { // ENTER
+		close()
+	}
 }
